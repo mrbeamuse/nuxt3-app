@@ -4,6 +4,7 @@
 
 <style lang="scss" scoped>
 .detail-color {
-  color: $linkColor;
+  // color: $linkColor;
+  color: var(--link-color);
 }
 </style>

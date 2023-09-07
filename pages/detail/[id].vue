@@ -1,10 +1,11 @@
 <template>
-  <div class="detail-color">{{ $route.params.id }}</div>
+  <div class="p-5">
+    <h1 class="text-2xl">{{ title }}</h1>
+    <div v-html="content"></div>
+  </div>
 </template>
 
-<style lang="scss" scoped>
-.detail-color {
-  // color: $linkColor;
-  color: var(--link-color);
-}
-</style>
+<script setup lang="ts">
+const router = useRoute();
+const { title, content } = await $fetch(`/api/detail/${router.params.id}`);
+</script>

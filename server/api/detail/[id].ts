@@ -13,17 +13,30 @@ export default defineEventHandler(async (event) => {
 
   // 获取文章内容
   const fullPath = path.join(postsDir, fileName);
-  const fileContent = fs.readFileSync(fullPath, "utf-8");
 
-  // 解析扉页信息
-  const matterInfo = matter(fileContent);
+  // 判断 fullPath 是否可以访问
+  try {
+    fs.accessSync(fullPath);
+    const fileContent = fs.readFileSync(fullPath, "utf-8");
 
-  // 转换markdown为HTML
-  const processedContent = await remark().use(html).process(matterInfo.content);
-  const content = processedContent.toString();
+    // 解析扉页信息
+    const matterInfo = matter(fileContent);
 
-  return {
-    title: matterInfo.data.title,
-    content,
-  };
+    // 转换markdown为HTML
+    const processedContent = await remark()
+      .use(html)
+      .process(matterInfo.content);
+    const content = processedContent.toString();
+
+    return {
+      title: matterInfo.data.title,
+      content,
+    };
+  } catch (err) {
+    // 没有此文件或没有访问权限
+    throw createError({
+      statusCode: 404,
+      statusMessage: "article not found",
+    });
+  }
 });

@@ -1,6 +1,17 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  // 默认情况下是vite打包，如果需要webpack打包，需要配置build: { vite: false }
+  // builder: "webpack" // 需要安装 @nuxt/webpack-builder
+  // 默认情况是ssr，如果需要spa，需要配置ssr: false
+  runtimeConfig: {
+    // 只能用于服务端的 keys
+    apiSecret: "",
+    // 可用于客户端的 keys
+    public: {
+      apiBase: "/api",
+    },
+  },
   modules: [
     "@nuxtjs/tailwindcss",
     "@huntersofbook/naive-ui-nuxt", // 引入 Pinia

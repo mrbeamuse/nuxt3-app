@@ -16,4 +16,10 @@
 
 <script setup lang="ts">
 const appConfig = useAppConfig();
+const runtimeConfig = useRuntimeConfig();
+console.log("Runtime config:", runtimeConfig);
+// 只在服务端才能输出
+if (process.server) {
+  console.log("API secret:", runtimeConfig.apiSecret);
+}
 </script>

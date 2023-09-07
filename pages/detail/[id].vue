@@ -23,7 +23,9 @@ const store = useUser();
 const { isLogin } = storeToRefs(store);
 const router = useRouter();
 const route = useRoute();
-
+useHead({
+  title: route.params.id as string,
+});
 const fetchPost = () => $fetch(`/api/detail/${route.params.id}`);
 const { data, pending, error } = await useAsyncData(fetchPost);
 

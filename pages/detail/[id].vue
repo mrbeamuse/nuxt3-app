@@ -14,6 +14,10 @@
 </template>
 
 <script setup lang="ts">
+import { useUser } from "~/store/user";
+// 获取状态，转换为 Ref，其他代码无需改变
+const store = useUser();
+const { isLogin } = storeToRefs(store);
 const router = useRouter();
 const route = useRoute();
 const fetchPost = () => $fetch(`/api/detail/${route.params.id}`);
@@ -21,7 +25,6 @@ const { data, pending } = await useAsyncData(fetchPost);
 
 // 增加评论相关逻辑，注意登录状态的获取和使用
 const value = useState("comment", () => "");
-const isLogin = useLogin();
 const onSubmit = () => {
   if (isLogin.value) {
     // 提交留言...

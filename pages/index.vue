@@ -14,6 +14,13 @@
     </div>
     <div @click="prev">上一页</div>
     <div @click="next">下一页</div>
+    <h1>Color mode: {{ $colorMode.value }}</h1>
+    <select v-model="$colorMode.preference">
+      <option value="system">System</option>
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+      <option value="sepia">Sepia</option>
+    </select>
   </div>
 </template>
 
@@ -24,6 +31,10 @@ interface Post {
   title: string;
   date: string;
 }
+
+const colorMode = useColorMode();
+console.log(colorMode.preference);
+
 const page = ref(1);
 const {
   data: posts,
@@ -47,3 +58,17 @@ onMounted(() => {
   // (ins as ComponentInternalInstance)?.proxy?.$alert("component mounted！");
 });
 </script>
+<style>
+body {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.8);
+}
+.dark-mode body {
+  background-color: #091a28;
+  color: #ebf4f1;
+}
+.sepia-mode body {
+  background-color: #f1e7d0;
+  color: #433422;
+}
+</style>

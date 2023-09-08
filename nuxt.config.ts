@@ -42,5 +42,6 @@ export default defineNuxtConfig({
         ],
       },
     ],
+    ["@nuxtjs/color-mode", { preference: "dark" }],
   ],
 });

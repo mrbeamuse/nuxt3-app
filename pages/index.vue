@@ -18,6 +18,7 @@
 </template>
 
 <script setup lang="ts">
+import { ComponentInternalInstance, getCurrentInstance } from "vue";
 interface Post {
   id: number;
   title: string;
@@ -40,4 +41,9 @@ function next() {
   page.value++;
   refresh();
 }
+
+const ins = getCurrentInstance();
+onMounted(() => {
+  (ins as ComponentInternalInstance)?.proxy?.$alert("component mounted！");
+});
 </script>

@@ -44,6 +44,6 @@ function next() {
 
 const ins = getCurrentInstance();
 onMounted(() => {
-  (ins as ComponentInternalInstance)?.proxy?.$alert("component mounted！");
+  // (ins as ComponentInternalInstance)?.proxy?.$alert("component mounted！");
 });
 </script>

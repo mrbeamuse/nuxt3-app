@@ -26,6 +26,11 @@ const route = useRoute();
 useHead({
   title: route.params.id as string,
 });
+// 定义中间件守护路由
+definePageMeta({
+  middleware: ["auth"],
+});
+
 const fetchPost = () => $fetch(`/api/detail/${route.params.id}`);
 const { data, pending, error } = await useAsyncData(fetchPost);
 

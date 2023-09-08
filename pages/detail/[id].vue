@@ -27,11 +27,23 @@ useHead({
   title: route.params.id as string,
 });
 // 定义中间件守护路由
-definePageMeta({
-  middleware: ["auth"],
-});
+// definePageMeta({
+//   middleware: ["auth"],
+// });
 
-const fetchPost = () => $fetch(`/api/detail/${route.params.id}`);
+// const fetchPost = () => $fetch(`/api/detail/${route.params.id}`);
+const fetchPost = () =>
+  $fetch(`/api/detail/${route.params.id}`, {
+    // 如果已登录，请求时携带令牌
+    headers: store.isLogin ? { token: "abc" } : {},
+    onResponseError: ({ response }) => {
+      // 如果响应 401 错误，重新登录
+      if (response.status === 401) {
+        router.push("/login?callback=" + route.path);
+      }
+    },
+  });
+
 const { data, pending, error } = await useAsyncData(fetchPost);
 
 // 获取服务端返回的错误信息
